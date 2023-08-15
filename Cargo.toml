@@ -1,5 +1,5 @@
 [workspace]
 members = [
     "libuci-sys",
-    "rust-uci",
+    "rust-uci", "uci-cli"
 ]
