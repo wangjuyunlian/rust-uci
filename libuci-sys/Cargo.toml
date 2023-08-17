@@ -15,5 +15,3 @@ exclude = ["libubox/tests/*", "uci/tests/*"]
 targets = ["x86_64-unknown-linux-gnu"]
 
 [build-dependencies]
-bindgen = "^0.58.1"
-cmake = "^0.1.45"

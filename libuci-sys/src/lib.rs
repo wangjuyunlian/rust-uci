@@ -42,7 +42,7 @@ pub use bindings::{
 mod bindings {
     use std::ffi::CStr;
 
-    include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+    include!("bindings.rs");
 
     impl core::fmt::Debug for uci_option {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
