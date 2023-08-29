@@ -4,8 +4,8 @@
 extern crate bindgen;
 extern crate cmake;
 
-use std::{env, fs};
 use std::path::PathBuf;
+use std::{env, fs};
 
 fn main() {
     let out_path = PathBuf::from(env::var("OUT_DIR").unwrap()).join("bindings.rs");
@@ -17,6 +17,15 @@ fn main() {
     }
 
     let mut builder = bindgen::Builder::default();
+
+    if let (Ok(arch), Ok(env)) = (
+        env::var("CARGO_CFG_TARGET_ARCH"),
+        env::var("CARGO_CFG_TARGET_ENV"),
+    ) {
+        if arch.as_str() == "mips" && env.as_str() == "musl" {
+            builder = builder.clang_arg(format!("-I/opt/openwrt-sdk-21.02.3-ramips-mt76x8_gcc-8.4.0_musl.Linux-x86_64/staging_dir/toolchain-mipsel_24kc_gcc-8.4.0_musl/include"));
+        }
+    }
     // if BINDGEN_TARGET is set it instructs the target bindgen is built for
     if let Ok(bindgen_target) = env::var("BINDGEN_TARGET") {
         builder = builder.clang_arg(format!("--target={}", bindgen_target));
